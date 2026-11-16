@@ -1,0 +1,19 @@
+VLAN_ID,VLAN_Name,Description_Purpose,Subnet,CIDR,Subnet_Mask,Usable_Host_Range,Gateway_IP,DHCP_Range,Static_Reserved_Range,Broadcast_IP,L3_Routing_Gateway_Location
+10,MGMT_INFRA,In-Band Network Infrastructure Management (Switches APs UPS PDU),10.10.10.0,/24,255.255.255.0,10.10.10.1 - 10.10.10.254,10.10.10.1,10.10.10.200 - 10.10.10.220 (Staging),10.10.10.2 - 10.10.10.199,10.10.10.255,Core Switch (HSRP)
+20,SERVERS_PROD,Production On-Prem Servers (AD DC DNS DHCP PBX NVR ACS),10.10.20.0,/24,255.255.255.0,10.10.20.1 - 10.10.20.254,10.10.20.1,None (Static / Reservations Only),10.10.20.2 - 10.10.20.254,10.10.20.255,Core Switch (HSRP)
+30,DATA_USERS_GF,Ground Floor Wired Workstations & Meeting Rooms,10.10.30.0,/24,255.255.255.0,10.10.30.1 - 10.10.30.254,10.10.30.1,10.10.30.100 - 10.10.30.220,10.10.30.2 - 10.10.30.99,10.10.30.255,Core Switch (HSRP)
+31,DATA_USERS_F1,Floor 1 Wired Workstations & Meeting Rooms,10.10.31.0,/24,255.255.255.0,10.10.31.1 - 10.10.31.254,10.10.31.1,10.10.31.100 - 10.10.31.220,10.10.31.2 - 10.10.31.99,10.10.31.255,Core Switch (HSRP)
+32,DATA_USERS_F2,Floor 2 Wired Workstations & Meeting Rooms,10.10.32.0,/24,255.255.255.0,10.10.32.1 - 10.10.32.254,10.10.32.1,10.10.32.100 - 10.10.32.220,10.10.32.2 - 10.10.32.99,10.10.32.255,Core Switch (HSRP)
+33,DATA_USERS_F3,Floor 3 Wired Workstations & Boardrooms,10.10.33.0,/24,255.255.255.0,10.10.33.1 - 10.10.33.254,10.10.33.1,10.10.33.100 - 10.10.33.220,10.10.33.2 - 10.10.33.99,10.10.33.255,Core Switch (HSRP)
+40,VOICE_VOIP,Enterprise IP Telephony & SIP Conference Units (All Floors),10.10.40.0,/23,255.255.254.0,10.10.40.1 - 10.10.41.254,10.10.40.1,10.10.40.100 - 10.10.41.220,10.10.40.2 - 10.10.40.99,10.10.41.255,Core Switch (HSRP)
+50,WIFI_CORP,Corporate 802.1X Wireless Laptops Tablets & Mobiles,10.10.50.0,/23,255.255.254.0,10.10.50.1 - 10.10.51.254,10.10.50.1,10.10.50.50 - 10.10.51.240,10.10.50.2 - 10.10.50.49,10.10.51.255,Core Switch (HSRP)
+60,WIFI_GUEST,Isolated Visitor Guest Wi-Fi (Captive Portal Internet Only),10.10.60.0,/24,255.255.255.0,10.10.60.1 - 10.10.60.254,10.10.60.1,10.10.60.20 - 10.10.60.250,10.10.60.2 - 10.10.60.19,10.10.60.255,Perimeter NGFW (Direct)
+70,ELV_CCTV,PoE IP Surveillance Cameras & NVR Streaming Interfaces,10.10.70.0,/24,255.255.255.0,10.10.70.1 - 10.10.70.254,10.10.70.1,10.10.70.150 - 10.10.70.200 (Staging),10.10.70.2 - 10.10.70.149,10.10.70.255,Core Switch (HSRP)
+80,ELV_ACCESS,Physical Security Door Controllers Readers & Turnstiles,10.10.80.0,/24,255.255.255.0,10.10.80.1 - 10.10.80.254,10.10.80.1,10.10.80.150 - 10.10.80.200 (Staging),10.10.80.2 - 10.10.80.149,10.10.80.255,Core Switch (HSRP)
+90,PRINTERS,Network Multi-Function Printers (MFPs) All Floors,10.10.90.0,/24,255.255.255.0,10.10.90.1 - 10.10.90.254,10.10.90.1,10.10.90.100 - 10.10.90.150 (Transient),10.10.90.2 - 10.10.90.99,10.10.90.255,Core Switch (HSRP)
+100,TRANSIT_CORE_FW,Core Switch to Perimeter NGFW Dual-HA Transit Link,10.10.100.0,/29,255.255.255.248,10.10.100.1 - 10.10.100.6,10.10.100.4 (NGFW VIP),None (Static L3 Routed),10.10.100.1 - 10.10.100.6,10.10.100.7,Core Switch / NGFW HA
+999,NATIVE_BLACKHOLE,802.1Q Trunk Native VLAN & Unused Access Ports,Unrouted,N/A,N/A,None,None,None,None,None,Unrouted Sinkhole
+N/A,P2P_CORE_L3_01,Core-01 to Core-02 L3 Routed Cross-Connect Link 1,10.10.250.0,/30,255.255.255.252,10.10.250.1 - 10.10.250.2,N/A,None (Static L3 Routed),10.10.250.1 - 10.10.250.2,10.10.250.3,Core Switch Pair Routed Link
+N/A,P2P_CORE_L3_02,Core-01 to Core-02 L3 Routed Cross-Connect Link 2,10.10.250.4,/30,255.255.255.252,10.10.250.5 - 10.10.250.6,N/A,None (Static L3 Routed),10.10.250.5 - 10.10.250.6,10.10.250.7,Core Switch Pair Routed Link
+N/A,LOOPBACKS,Device Loopback Interfaces for OSPF Router ID & In-Band SSH,10.10.255.0,/24,255.255.255.0,10.10.255.1 - 10.10.255.254,N/A,None (Host Routes /32),10.10.255.1 - 10.10.255.254,10.10.255.255,Individual Devices (/32 Host Routes)
+

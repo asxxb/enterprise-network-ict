@@ -1,0 +1,291 @@
+! ==============================================================================
+! Cisco IOS-XE / Packet Tracer Configuration Template
+! Device: Universal Floor Access Switch Stack (48-Port PoE+)
+! Target Hardware: Cisco Catalyst 9300-48P / Catalyst 2960-48PST / 3650-48PS
+! Usage: Replace template variables {{VARIABLE}} using the per-floor table.
+! ==============================================================================
+!
+! ==============================================================================
+! VARIABLE SUBSTITUTION TABLE:
+! ------------------------------------------------------------------------------
+! Ground Floor:
+!   {{HOSTNAME}}        = Acc-SW-GF
+!   {{MGMT_IP}}         = 10.10.10.10
+!   {{DATA_VLAN}}       = 30
+!   {{DATA_VLAN_NAME}}  = DATA_USERS_GF
+!   {{UPLINK_PO}}       = 1
+!
+! Floor 1:
+!   {{HOSTNAME}}        = Acc-SW-F1
+!   {{MGMT_IP}}         = 10.10.10.11
+!   {{DATA_VLAN}}       = 31
+!   {{DATA_VLAN_NAME}}  = DATA_USERS_F1
+!   {{UPLINK_PO}}       = 2
+!
+! Floor 2:
+!   {{HOSTNAME}}        = Acc-SW-F2
+!   {{MGMT_IP}}         = 10.10.10.12
+!   {{DATA_VLAN}}       = 32
+!   {{DATA_VLAN_NAME}}  = DATA_USERS_F2
+!   {{UPLINK_PO}}       = 3
+!
+! Floor 3:
+!   {{HOSTNAME}}        = Acc-SW-F3
+!   {{MGMT_IP}}         = 10.10.10.13
+!   {{DATA_VLAN}}       = 33
+!   {{DATA_VLAN_NAME}}  = DATA_USERS_F3
+!   {{UPLINK_PO}}       = 4
+! ==============================================================================
+
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service sequence-numbers
+!
+hostname {{HOSTNAME}}
+!
+ip domain-name corp.office.local
+!
+! --- AAA and Management Authentication ---
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+!
+username admin privilege 15 algorithm-type scrypt secret Cisco@Admin2026!
+enable secret Cisco@Enable2026!
+!
+! --- Spanning Tree Protocol (Rapid-PVST & Edge Protection) ---
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+!
+! --- VLAN Provisioning ---
+vlan 10
+ name MGMT_INFRA
+!
+vlan {{DATA_VLAN}}
+ name {{DATA_VLAN_NAME}}
+!
+vlan 40
+ name VOICE_VOIP
+!
+vlan 50
+ name WIFI_CORP
+!
+vlan 60
+ name WIFI_GUEST
+!
+vlan 70
+ name ELV_CCTV
+!
+vlan 80
+ name ELV_ACCESS
+!
+vlan 90
+ name PRINTERS
+!
+vlan 999
+ name NATIVE_BLACKHOLE
+!
+! --- Layer 2 Security Suite: DHCP Snooping & DAI ---
+ip dhcp snooping
+ip dhcp snooping vlan 10,{{DATA_VLAN}},40,50,60,70,80,90
+no ip dhcp snooping information option
+!
+ip arp inspection vlan 10,{{DATA_VLAN}},40,50,60,70,80,90
+ip arp inspection validate src-mac dst-mac ip
+!
+! --- Management SVI (VLAN 10) ---
+interface Vlan10
+ description IN_BAND_MANAGEMENT_INTERFACE
+ ip address {{MGMT_IP}} 255.255.255.0
+ no shutdown
+!
+ip default-gateway 10.10.10.1
+!
+! ==============================================================================
+! REDUNDANT UPLINKS TO CORE SWITCH CLUSTER (LACP 802.3ad)
+! ==============================================================================
+! Port-Channel {{UPLINK_PO}} aggregates dual fiber links (Link 1 to Core-01, Link 2 to Core-02)
+interface Port-channel{{UPLINK_PO}}
+ description UPLINK_LACP_LAG_TO_CORE_CLUSTER
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,{{DATA_VLAN}},40,50,60,70,80,90,999
+ ip dhcp snooping trust
+ ip arp inspection trust
+ no shutdown
+!
+! Physical Fiber Uplink 1 (Connects to Core-SW-01)
+interface GigabitEthernet1/0/49
+ description PHYSICAL_UPLINK_TO_CORE_SW01
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,{{DATA_VLAN}},40,50,60,70,80,90,999
+ channel-group {{UPLINK_PO}} mode active
+ ip dhcp snooping trust
+ ip arp inspection trust
+ no shutdown
+!
+! Physical Fiber Uplink 2 (Connects to Core-SW-02)
+interface GigabitEthernet1/0/50
+ description PHYSICAL_UPLINK_TO_CORE_SW02
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,{{DATA_VLAN}},40,50,60,70,80,90,999
+ channel-group {{UPLINK_PO}} mode active
+ ip dhcp snooping trust
+ ip arp inspection trust
+ no shutdown
+!
+! ==============================================================================
+! ACCESS PORT PROFILES
+! ==============================================================================
+!
+! ------------------------------------------------------------------------------
+! PROFILE 1: USER WORKSTATION & IP PHONE DAISY-CHAIN (Ports 1 - 24)
+! ------------------------------------------------------------------------------
+interface range GigabitEthernet1/0/1 - 24
+ description USER_PC_AND_IP_PHONE_DROP
+ switchport mode access
+ switchport access vlan {{DATA_VLAN}}
+ switchport voice vlan 40
+ auto qos voip cisco-phone
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ storm-control broadcast level 5.0
+ storm-control multicast level 10.0
+ storm-control action trap
+ no shutdown
+!
+! ------------------------------------------------------------------------------
+! PROFILE 2: IP CCTV SURVEILLANCE CAMERAS (Ports 25 - 32)
+! ------------------------------------------------------------------------------
+interface range GigabitEthernet1/0/25 - 32
+ description ELV_CCTV_CAMERA_DROP
+ switchport mode access
+ switchport access vlan 70
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security mac-address sticky
+ switchport port-security violation shutdown
+ storm-control broadcast level 3.0
+ storm-control multicast level 5.0
+ storm-control action trap
+ no shutdown
+!
+! ------------------------------------------------------------------------------
+! PROFILE 3: ACCESS CONTROL DOOR CONTROLLERS / READERS (Ports 33 - 36)
+! ------------------------------------------------------------------------------
+interface range GigabitEthernet1/0/33 - 36
+ description ELV_ACCESS_CONTROL_CONTROLLER_DROP
+ switchport mode access
+ switchport access vlan 80
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security mac-address sticky
+ switchport port-security violation shutdown
+ storm-control broadcast level 3.0
+ storm-control multicast level 5.0
+ storm-control action trap
+ no shutdown
+!
+! ------------------------------------------------------------------------------
+! PROFILE 4: NETWORK MULTI-FUNCTION PRINTERS (Ports 37 - 38)
+! ------------------------------------------------------------------------------
+interface range GigabitEthernet1/0/37 - 38
+ description NETWORK_MFP_PRINTER_DROP
+ switchport mode access
+ switchport access vlan 90
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict
+ storm-control broadcast level 5.0
+ storm-control multicast level 10.0
+ storm-control action trap
+ no shutdown
+!
+! ------------------------------------------------------------------------------
+! PROFILE 5: WI-FI 6 ACCESS POINTS (Ports 39 - 42)
+! ------------------------------------------------------------------------------
+interface range GigabitEthernet1/0/39 - 42
+ description WIFI6_ACCESS_POINT_TRUNK
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 10
+ switchport trunk allowed vlan 10,50,60
+ spanning-tree portfast trunk
+ spanning-tree bpduguard enable
+ storm-control broadcast level 10.0
+ storm-control multicast level 20.0
+ storm-control action trap
+ no shutdown
+!
+! ------------------------------------------------------------------------------
+! PROFILE 6: UNUSED / SPARE PORTS (Ports 43 - 48)
+! ------------------------------------------------------------------------------
+interface range GigabitEthernet1/0/43 - 48
+ description UNUSED_SECURITY_BLACKHOLE
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+! ==============================================================================
+! MANAGEMENT & HARDENING SERVICES
+! ==============================================================================
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+!
+ntp server 10.10.20.10 prefer
+ntp server 10.10.20.11
+!
+logging buffered 64000 informational
+logging host 10.10.20.10
+logging trap warnings
+!
+snmp-server group SECURE_MGMT_GRP v3 priv
+snmp-server user snmpadmin SECURE_MGMT_GRP v3 auth sha AuthPass2026! priv aes 128 PrivPass2026!
+snmp-server host 10.10.20.10 version 3 priv snmpadmin
+snmp-server location "HQ Building - Floor IDF Cabinet"
+snmp-server contact "NOC Team <noc@corp.office.local>"
+!
+banner motd ^C
+*******************************************************************************
+*  WARNING: UNAUTHORIZED ACCESS TO THIS NETWORK SWITCH IS STRICTLY PROHIBITED  *
+*  All connections, activities, and keystrokes are logged and monitored.      *
+*******************************************************************************
+^C
+!
+line con 0
+ exec-timeout 10 0
+ logging synchronous
+ login authentication default
+line vty 0 4
+ exec-timeout 10 0
+ logging synchronous
+ transport input ssh
+ login authentication default
+line vty 5 15
+ exec-timeout 10 0
+ logging synchronous
+ transport input ssh
+ login authentication default
+!
+end
+

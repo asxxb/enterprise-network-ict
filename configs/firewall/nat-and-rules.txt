@@ -1,0 +1,249 @@
+! ==============================================================================
+! Next-Generation Perimeter Firewall Configuration & Inter-VLAN ACL Suite
+! Devices: Perimeter NGFW Cluster & Cisco Collapsed Core Switches
+! Standards: Cisco ASA / Firepower CLI Syntax & Cisco IOS-XE SVI ACLs
+! ==============================================================================
+
+! ==============================================================================
+! SECTION 1: FIREWALL INTERFACES & NETWORK OBJECTS
+! ==============================================================================
+
+interface GigabitEthernet1/1
+ nameif OUTSIDE
+ security-level 0
+ ip address 198.51.100.2 255.255.255.248
+ no shutdown
+!
+interface GigabitEthernet1/2
+ nameif INSIDE_TRANSIT
+ security-level 70
+ ip address 10.10.100.4 255.255.255.248
+ no shutdown
+!
+interface GigabitEthernet1/3
+ nameif GUEST
+ security-level 10
+ ip address 10.10.60.1 255.255.255.0
+ no shutdown
+!
+! --- Address Objects & Groups ---
+object network OBJ_NET_CORP_CAMPUS
+ subnet 10.10.0.0 255.255.0.0
+ description Entire_HQ_Campus_Supernet
+!
+object network OBJ_NET_GUEST_WIFI
+ subnet 10.10.60.0 255.255.255.0
+ description Isolated_Visitor_Guest_Subnet
+!
+object network OBJ_NET_SERVERS
+ subnet 10.10.20.0 255.255.255.0
+ description Production_Server_Farm
+!
+object network OBJ_NET_ELV_CCTV
+ subnet 10.10.70.0 255.255.255.0
+ description IP_CCTV_Surveillance_Subnet
+!
+object network OBJ_NET_ELV_ACCESS
+ subnet 10.10.80.0 255.255.255.0
+ description Physical_Access_Control_Subnet
+!
+object network OBJ_HOST_WEB_PORTAL
+ host 10.10.20.14
+ description Published_Internal_Web_Portal
+!
+object network OBJ_HOST_PBX
+ host 10.10.20.15
+ description On_Prem_VoIP_PBX_Call_Manager
+!
+object network OBJ_HOST_NVR
+ host 10.10.20.16
+ description Central_CCTV_Network_Video_Recorder
+!
+object network OBJ_HOST_ITSP_GATEWAY
+ host 203.0.113.50
+ description Authorized_VoIP_SIP_Provider_SBC
+!
+object network OBJ_PUB_IP_WEB
+ host 198.51.100.10
+ description Public_IP_For_Web_Portal
+!
+object network OBJ_PUB_IP_SIP
+ host 198.51.100.11
+ description Public_IP_For_SIP_Trunking
+!
+object network OBJ_POOL_VPN_CLIENTS
+ subnet 10.10.200.0 255.255.255.0
+ description Remote_Access_SSL_VPN_Pool
+!
+
+! ==============================================================================
+! SECTION 2: NETWORK ADDRESS TRANSLATION (NAT)
+! ==============================================================================
+
+! 1. Dynamic PAT (Port Address Translation) for Corporate Internal LAN
+nat (INSIDE_TRANSIT,OUTSIDE) source dynamic OBJ_NET_CORP_CAMPUS interface description Outbound_Corporate_Internet_PAT
+
+! 2. Dynamic PAT for Visitor Guest Wi-Fi (Translates to secondary IP to isolate reputation)
+object network OBJ_PUB_IP_GUEST_PAT
+ host 198.51.100.3
+!
+nat (GUEST,OUTSIDE) source dynamic OBJ_NET_GUEST_WIFI OBJ_PUB_IP_GUEST_PAT description Outbound_Guest_Internet_PAT
+
+! 3. Static Destination NAT (Port Forwarding) for Published Corporate Web Portal
+nat (OUTSIDE,INSIDE_TRANSIT) source any destination static OBJ_PUB_IP_WEB OBJ_HOST_WEB_PORTAL service https https description Inbound_HTTPS_Web_Portal_DNAT
+
+! 4. Static 1:1 NAT for External SIP Trunking with VoIP ITSP Carrier
+nat (INSIDE_TRANSIT,OUTSIDE) source static OBJ_HOST_PBX OBJ_PUB_IP_SIP destination static OBJ_HOST_ITSP_GATEWAY OBJ_HOST_ITSP_GATEWAY description Dedicated_VoIP_SIP_Carrier_NAT
+
+! 5. NAT Exemption (Identity NAT) for Remote Access VPN Clients
+nat (INSIDE_TRANSIT,any) source static OBJ_NET_CORP_CAMPUS OBJ_NET_CORP_CAMPUS destination static OBJ_POOL_VPN_CLIENTS OBJ_POOL_VPN_CLIENTS no-proxy-arp route-lookup
+!
+
+! ==============================================================================
+! SECTION 3: FIREWALL ACCESS CONTROL LISTS (SECURITY POLICIES)
+! ==============================================================================
+
+! --- Outbound Policy from Inside Corporate Network ---
+access-list ACL_INSIDE_OUT extended permit tcp object OBJ_NET_CORP_CAMPUS any eq 80
+access-list ACL_INSIDE_OUT extended permit tcp object OBJ_NET_CORP_CAMPUS any eq 443
+access-list ACL_INSIDE_OUT extended permit udp object OBJ_NET_CORP_CAMPUS any eq 53
+access-list ACL_INSIDE_OUT extended permit udp object OBJ_NET_CORP_CAMPUS any eq 123
+access-list ACL_INSIDE_OUT extended deny ip object OBJ_NET_ELV_CCTV any log
+access-list ACL_INSIDE_OUT extended deny ip object OBJ_NET_ELV_ACCESS any log
+access-list ACL_INSIDE_OUT extended deny ip any any log
+!
+access-group ACL_INSIDE_OUT in interface INSIDE_TRANSIT
+
+! --- Outbound Policy from Visitor Guest Wi-Fi ---
+access-list ACL_GUEST_OUT extended deny ip object OBJ_NET_GUEST_WIFI object OBJ_NET_CORP_CAMPUS log
+access-list ACL_GUEST_OUT extended permit udp object OBJ_NET_GUEST_WIFI any eq 53
+access-list ACL_GUEST_OUT extended permit tcp object OBJ_NET_GUEST_WIFI any eq 80
+access-list ACL_GUEST_OUT extended permit tcp object OBJ_NET_GUEST_WIFI any eq 443
+access-list ACL_GUEST_OUT extended deny ip any any log
+!
+access-group ACL_GUEST_OUT in interface GUEST
+
+! --- Inbound Policy from Outside Internet ---
+access-list ACL_OUTSIDE_IN extended permit tcp any object OBJ_HOST_WEB_PORTAL eq 443
+access-list ACL_OUTSIDE_IN extended permit udp object OBJ_HOST_ITSP_GATEWAY object OBJ_HOST_PBX eq 5060
+access-list ACL_OUTSIDE_IN extended permit udp object OBJ_HOST_ITSP_GATEWAY object OBJ_HOST_PBX range 10000 20000
+access-list ACL_OUTSIDE_IN extended deny ip any any log
+!
+access-group ACL_OUTSIDE_IN in interface OUTSIDE
+!
+
+! ==============================================================================
+! SECTION 4: REMOTE-ACCESS SSL-VPN CONFIGURATION
+! ==============================================================================
+
+ip local pool VPN_CLIENT_POOL 10.10.200.10 10.10.200.250 mask 255.255.255.0
+
+! Split-Tunnel Access List: Only Corporate Subnets traverse VPN
+access-list ACL_VPN_SPLIT_TUNNEL standard permit 10.10.0.0 255.255.0.0
+
+group-policy GP_CORP_EMPLOYEES internal
+group-policy GP_CORP_EMPLOYEES attributes
+ vpn-tunnel-protocol ssl-client
+ split-tunnel-policy tunnelspecified
+ split-tunnel-network-list value ACL_VPN_SPLIT_TUNNEL
+ dns-server value 10.10.20.10 10.10.20.11
+ default-domain value corp.office.local
+ webvpn
+  anyconnect keep-installer installed
+  always-on-vpn false
+!
+tunnel-group TG_CORP_REMOTE_VPN type remote-access
+tunnel-group TG_CORP_REMOTE_VPN general-attributes
+ address-pool VPN_CLIENT_POOL
+ default-group-policy GP_CORP_EMPLOYEES
+ authentication-server-group RADIUS_MFA_SERVERS
+!
+webvpn
+ enable OUTSIDE
+ anyconnect enable
+!
+
+! ==============================================================================
+! SECTION 5: CORE SWITCH SVI ACCESS CONTROL LISTS (INTER-VLAN MICRO-SEGMENTATION)
+! Applied directly to SVIs on Core-SW-01 and Core-SW-02 for wire-speed filtering
+! ==============================================================================
+
+! ------------------------------------------------------------------------------
+! 1. CCTV Surveillance Isolation (Applied Inbound on SVI Vlan70)
+! ------------------------------------------------------------------------------
+ip access-list extended ACL_CCTV_SVI_IN
+ ! Permit RTSP streaming and web management to NVR storage interfaces only
+ permit tcp 10.10.70.0 0.0.0.255 host 10.10.20.16 eq 554
+ permit udp 10.10.70.0 0.0.0.255 host 10.10.20.16 eq 554
+ permit tcp 10.10.70.0 0.0.0.255 host 10.10.20.16 eq 80
+ permit tcp 10.10.70.0 0.0.0.255 host 10.10.20.16 eq 443
+ ! Permit NTP time synchronization with Core Switch VIP
+ permit udp 10.10.70.0 0.0.0.255 host 10.10.70.1 eq 123
+ ! Deny and log all other outbound traffic (Blocks Internet, workstations, servers)
+ deny ip 10.10.70.0 0.0.0.255 any log
+!
+interface Vlan70
+ ip access-group ACL_CCTV_SVI_IN in
+!
+
+! ------------------------------------------------------------------------------
+! 2. Access Control Isolation (Applied Inbound on SVI Vlan80)
+! ------------------------------------------------------------------------------
+ip access-list extended ACL_ACCESS_CTRL_SVI_IN
+ ! Permit controller communication with central Access Control Server only
+ permit tcp 10.10.80.0 0.0.0.255 host 10.10.20.17
+ permit udp 10.10.80.0 0.0.0.255 host 10.10.20.17
+ ! Permit NTP time synchronization with Core Switch VIP
+ permit udp 10.10.80.0 0.0.0.255 host 10.10.80.1 eq 123
+ ! Deny all other traffic
+ deny ip 10.10.80.0 0.0.0.255 any log
+!
+interface Vlan80
+ ip access-group ACL_ACCESS_CTRL_SVI_IN in
+!
+
+! ------------------------------------------------------------------------------
+! 3. Printer Isolation (Applied Inbound on SVI Vlan90)
+! ------------------------------------------------------------------------------
+ip access-list extended ACL_PRINTERS_SVI_IN
+ ! Permit SNMP and Status Reporting to Central Print Server
+ permit ip 10.10.90.0 0.0.0.255 host 10.10.20.13
+ ! Permit NTP time sync
+ permit udp 10.10.90.0 0.0.0.255 host 10.10.90.1 eq 123
+ ! Deny all other outbound initiated traffic (Printers cannot initiate connections to PCs)
+ deny ip 10.10.90.0 0.0.0.255 any log
+!
+interface Vlan90
+ ip access-group ACL_PRINTERS_SVI_IN in
+!
+
+! ------------------------------------------------------------------------------
+! 4. User Floors Micro-Segmentation (Applied Inbound on SVIs Vlan30, 31, 32, 33)
+! ------------------------------------------------------------------------------
+ip access-list extended ACL_USERS_SVI_IN
+ ! Block standard users from accessing Management Infrastructure (VLAN 10)
+ ! Exception: IT Admin Jump Host at 10.10.31.50
+ permit ip host 10.10.31.50 10.10.10.0 0.0.0.255
+ deny ip any 10.10.10.0 0.0.0.255 log
+ ! Block users from accessing raw CCTV cameras and door controllers directly
+ deny ip any 10.10.70.0 0.0.0.255 log
+ deny ip any 10.10.80.0 0.0.0.255 log
+ ! Permit printing ports (RAW 9100 and IPP 631) to Printers
+ permit tcp any 10.10.90.0 0.0.0.255 eq 9100
+ permit tcp any 10.10.90.0 0.0.0.255 eq 631
+ ! Permit standard corporate server access (AD, DNS, DHCP, File, Web)
+ permit ip any 10.10.20.0 0.0.0.255
+ ! Permit all other outbound Internet traffic via default gateway
+ permit ip any any
+!
+interface Vlan30
+ ip access-group ACL_USERS_SVI_IN in
+interface Vlan31
+ ip access-group ACL_USERS_SVI_IN in
+interface Vlan32
+ ip access-group ACL_USERS_SVI_IN in
+interface Vlan33
+ ip access-group ACL_USERS_SVI_IN in
+!
+end
+

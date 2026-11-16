@@ -1,0 +1,36 @@
+Outlet_ID,Floor,Location_Zone,Port_Type,Service_Type,Drop_Count,Cable_Type,Patch_Panel_ID,Switch_Port,Max_Distance_m,Status
+G-OUT-01,Ground,Reception Main Desk,Dual RJ45 Faceplate,PC + IP Phone,2,Cat6 UTP LSZH,MDF-PP01-P01/02,Gi1/0/1,18m,Active
+G-OUT-02,Ground,Reception Visitor Desk,Dual RJ45 Faceplate,PC + IP Phone,2,Cat6 UTP LSZH,MDF-PP01-P03/04,Gi1/0/2,22m,Active
+G-OUT-03,Ground,Security Console Desk,Dual RJ45 Faceplate,PC + IP Phone,2,Cat6 UTP LSZH,MDF-PP01-P05/06,Gi1/0/3,25m,Active
+G-OUT-04,Ground,Meeting Room A Table,Quad RJ45 Faceplate,Conf Phone + AV + 2x Spare,4,Cat6 UTP LSZH,MDF-PP01-P07-10,Gi1/0/4,28m,Active
+G-OUT-05,Ground,Meeting Room B Table,Quad RJ45 Faceplate,Conf Phone + AV + 2x Spare,4,Cat6 UTP LSZH,MDF-PP01-P11-14,Gi1/0/5,32m,Active
+G-OUT-06,Ground,Open Office GF Desks 01-20,Dual RJ45 per Desk,PC + IP Phone,40,Cat6 UTP LSZH,MDF-PP01-P15-48,Gi1/0/6-24,45m,Active
+G-OUT-07,Ground,Ground Printer 01 Station,Single RJ45 Faceplate,Network MFP,1,Cat6 UTP LSZH,MDF-PP02-P01,Gi1/0/37,20m,Active
+G-OUT-08,Ground,Ground Printer 02 Station,Single RJ45 Faceplate,Network MFP,1,Cat6 UTP LSZH,MDF-PP02-P02,Gi1/0/38,35m,Active
+G-OUT-09,Ground,Ground Ceiling Zone 01,Ceiling RJ45 Keystone,Wi-Fi 6 AP,1,Cat6 UTP LSZH,MDF-PP02-P03,Gi1/0/39,24m,Active
+G-OUT-10,Ground,Ground Ceiling Zone 02,Ceiling RJ45 Keystone,Wi-Fi 6 AP,1,Cat6 UTP LSZH,MDF-PP02-P04,Gi1/0/40,38m,Active
+G-OUT-11,Ground,Ground Ceiling Zone 03,Ceiling RJ45 Keystone,Wi-Fi 6 AP,1,Cat6 UTP LSZH,MDF-PP02-P05,Gi1/0/41,48m,Active
+G-OUT-12,Ground,Reception Entry Door,ELV Wall Box,Access Controller,1,Cat6 UTP LSZH,MDF-PP02-P06,Gi1/0/33,16m,Active
+G-OUT-13,Ground,Ground Lobby Cameras (8x),Ceiling Mount Box,CCTV Cameras,8,Cat6 UTP LSZH,MDF-PP02-P07-14,Gi1/0/25-32,52m,Active
+1-OUT-01,Floor 1,Floor 1 Open Office West (Desks 01-30),Dual RJ45 per Desk,PC + IP Phone,60,Cat6 UTP LSZH,IDF1-PP01-P01-48,Gi1/0/1-30,55m,Active
+1-OUT-02,Floor 1,Floor 1 Open Office East (Desks 31-60),Dual RJ45 per Desk,PC + IP Phone,60,Cat6 UTP LSZH,IDF1-PP02-P01-48,Gi2/0/1-30,68m,Active
+1-OUT-03,Floor 1,Meeting Room 101 Table,Quad RJ45 Faceplate,Conf Phone + AV + 2x Spare,4,Cat6 UTP LSZH,IDF1-PP03-P01-04,Gi1/0/31-32,34m,Active
+1-OUT-04,Floor 1,Meeting Room 102 Table,Quad RJ45 Faceplate,Conf Phone + AV + 2x Spare,4,Cat6 UTP LSZH,IDF1-PP03-P05-08,Gi1/0/33-34,42m,Active
+1-OUT-05,Floor 1,Floor 1 Printers 01 & 02,Dual RJ45 Faceplate,Network MFPs,2,Cat6 UTP LSZH,IDF1-PP03-P09-10,Gi1/0/37-38,28m,Active
+1-OUT-06,Floor 1,Floor 1 Ceiling APs (3x),Ceiling Keystone,Wi-Fi 6 APs,3,Cat6 UTP LSZH,IDF1-PP03-P11-13,Gi1/0/39-41,50m,Active
+1-OUT-07,Floor 1,Floor 1 CCTV Cameras (8x),Ceiling Mount Box,CCTV Cameras,8,Cat6 UTP LSZH,IDF1-PP03-P14-21,Gi1/0/25-32,64m,Active
+1-OUT-08,Floor 1,Floor 1 Access Control Doors (4x),ELV Wall Box,Access Controllers,4,Cat6 UTP LSZH,IDF1-PP03-P22-24,Gi1/0/35-36,40m,Active
+2-OUT-01,Floor 2,Floor 2 Open Office West (Desks 01-30),Dual RJ45 per Desk,PC + IP Phone,60,Cat6 UTP LSZH,IDF2-PP01-P01-48,Gi1/0/1-30,55m,Active
+2-OUT-02,Floor 2,Floor 2 Open Office East (Desks 31-60),Dual RJ45 per Desk,PC + IP Phone,60,Cat6 UTP LSZH,IDF2-PP02-P01-48,Gi2/0/1-30,68m,Active
+2-OUT-03,Floor 2,Meeting Room 201 Table,Quad RJ45 Faceplate,Conf Phone + AV + 2x Spare,4,Cat6 UTP LSZH,IDF2-PP03-P01-04,Gi1/0/31-32,34m,Active
+2-OUT-04,Floor 2,Meeting Room 202 Table,Quad RJ45 Faceplate,Conf Phone + AV + 2x Spare,4,Cat6 UTP LSZH,IDF2-PP03-P05-08,Gi1/0/33-34,42m,Active
+2-OUT-05,Floor 2,Floor 2 Printers 01 & 02,Dual RJ45 Faceplate,Network MFPs,2,Cat6 UTP LSZH,IDF2-PP03-P09-10,Gi1/0/37-38,28m,Active
+2-OUT-06,Floor 2,Floor 2 Ceiling APs (3x),Ceiling Keystone,Wi-Fi 6 APs,3,Cat6 UTP LSZH,IDF2-PP03-P11-13,Gi1/0/39-41,50m,Active
+2-OUT-07,Floor 2,Floor 2 CCTV Cameras (8x),Ceiling Mount Box,CCTV Cameras,8,Cat6 UTP LSZH,IDF2-PP03-P14-21,Gi1/0/25-32,64m,Active
+2-OUT-08,Floor 2,Floor 2 Access Control Doors (4x),ELV Wall Box,Access Controllers,4,Cat6 UTP LSZH,IDF2-PP03-P22-24,Gi1/0/35-36,40m,Active
+3-OUT-01,Floor 3,Executive Suites & Boardroom,Dual RJ45 per Desk,PC + IP Phone,40,Cat6 UTP LSZH,IDF3-PP01-P01-40,Gi1/0/1-20,48m,Active
+3-OUT-02,Floor 3,Executive Boardroom Table,Quad RJ45 Faceplate,Conf Phone + AV + 2x Spare,4,Cat6 UTP LSZH,IDF3-PP01-P41-44,Gi1/0/21-22,30m,Active
+3-OUT-03,Floor 3,Floor 3 Printers 01 & 02,Dual RJ45 Faceplate,Network MFPs,2,Cat6 UTP LSZH,IDF3-PP02-P01-02,Gi1/0/37-38,22m,Active
+3-OUT-04,Floor 3,Floor 3 Ceiling APs (3x),Ceiling Keystone,Wi-Fi 6 APs,3,Cat6 UTP LSZH,IDF3-PP02-P03-05,Gi1/0/39-41,45m,Active
+3-OUT-05,Floor 3,Floor 3 CCTV Cameras (8x),Ceiling Mount Box,CCTV Cameras,8,Cat6 UTP LSZH,IDF3-PP02-P06-13,Gi1/0/25-32,58m,Active
+3-OUT-06,Floor 3,Floor 3 Access Control Doors (4x),ELV Wall Box,Access Controllers,4,Cat6 UTP LSZH,IDF3-PP02-P14-17,Gi1/0/35-36,36m,Active

@@ -1,0 +1,14 @@
+AP_ID,Floor,Location_Zone,Model,MAC_Address,Management_IP,Subnet,Switch_Hostname,Switch_Port,Patch_Panel_ID,PoE_Standard,PoE_Draw_W,Primary_SSIDs,Antenna_Type
+WAP-GF-01,Ground,Reception & Conf Room A,Cisco Catalyst 9120AXI,F4:4B:2A:10:01:01,10.10.10.101,10.10.10.0/24,Acc-SW-GF,Gi1/0/39,MDF-PP-01-P39,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-GF-02,Ground,Central Open Office GF,Cisco Catalyst 9120AXI,F4:4B:2A:10:01:02,10.10.10.102,10.10.10.0/24,Acc-SW-GF,Gi1/0/40,MDF-PP-01-P40,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-GF-03,Ground,South Office & Breakout Cafe,Cisco Catalyst 9120AXI,F4:4B:2A:10:01:03,10.10.10.103,10.10.10.0/24,Acc-SW-GF,Gi1/0/41,MDF-PP-01-P41,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-F1-01,Floor 1,West Meeting Suites & Collaboration,Cisco Catalyst 9120AXI,F4:4B:2A:10:02:01,10.10.10.111,10.10.10.0/24,Acc-SW-F1,Gi1/0/39,IDF1-PP-01-P39,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-F1-02,Floor 1,Central Open Office Workstations,Cisco Catalyst 9120AXI,F4:4B:2A:10:02:02,10.10.10.112,10.10.10.0/24,Acc-SW-F1,Gi1/0/40,IDF1-PP-01-P40,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-F1-03,Floor 1,East Collaboration & Pantry,Cisco Catalyst 9120AXI,F4:4B:2A:10:02:03,10.10.10.113,10.10.10.0/24,Acc-SW-F1,Gi1/0/41,IDF1-PP-01-P41,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-F2-01,Floor 2,West Meeting Suites & Training Rm,Cisco Catalyst 9120AXI,F4:4B:2A:10:03:01,10.10.10.121,10.10.10.0/24,Acc-SW-F2,Gi1/0/39,IDF2-PP-01-P39,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-F2-02,Floor 2,Central Open Office Workstations,Cisco Catalyst 9120AXI,F4:4B:2A:10:03:02,10.10.10.122,10.10.10.0/24,Acc-SW-F2,Gi1/0/40,IDF2-PP-01-P40,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-F2-03,Floor 2,East Collaboration & Quiet Pods,Cisco Catalyst 9120AXI,F4:4B:2A:10:03:03,10.10.10.123,10.10.10.0/24,Acc-SW-F2,Gi1/0/41,IDF2-PP-01-P41,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-F3-01,Floor 3,Executive Boardroom Suite,Cisco Catalyst 9120AXI,F4:4B:2A:10:04:01,10.10.10.131,10.10.10.0/24,Acc-SW-F3,Gi1/0/39,IDF3-PP-01-P39,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-F3-02,Floor 3,Executive Offices & Legal Suite,Cisco Catalyst 9120AXI,F4:4B:2A:10:04:02,10.10.10.132,10.10.10.0/24,Acc-SW-F3,Gi1/0/40,IDF3-PP-01-P40,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+WAP-F3-03,Floor 3,East Open Finance & Admin Area,Cisco Catalyst 9120AXI,F4:4B:2A:10:04:03,10.10.10.133,10.10.10.0/24,Acc-SW-F3,Gi1/0/41,IDF3-PP-01-P41,802.3at (PoE+),20.0W,"Corp-Secure, HQ-Guest, HQ-IoT",Internal Omni (4x4:4)
+

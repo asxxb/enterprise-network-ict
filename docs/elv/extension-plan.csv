@@ -1,0 +1,34 @@
+Extension,User_Or_Function,Floor,Location,Device_Model,MAC_Placeholder,IP_Address,Subnet,Voice_VLAN,DID_Number,Pickup_Group,Class_Of_Service
+1001,Main Reception Attendant 01,Ground,Ground Main Reception Desk,Cisco IP Phone 8851,00:04:F2:10:01:01,10.10.40.11,10.10.40.0/23,40,+1-555-010-1001,PG-RECEPT,International
+1002,Main Reception Attendant 02,Ground,Ground Main Reception Desk,Cisco IP Phone 8851,00:04:F2:10:01:02,10.10.40.12,10.10.40.0/23,40,+1-555-010-1002,PG-RECEPT,International
+1005,Security Control Room Master,Ground,Security Console Desk GF,Cisco IP Phone 8845,00:04:F2:10:01:05,10.10.40.15,10.10.40.0/23,40,+1-555-010-1005,PG-SEC,National
+1008,Facilities & Building Ops,Ground,Facilities Workshop Room,Cisco IP Phone 7841,00:04:F2:10:01:08,10.10.40.18,10.10.40.0/23,40,+1-555-010-1008,PG-FACIL,National
+1010,Ground Floor User Desk 01,Ground,Open Office GF Desk 01,Cisco IP Phone 7841,00:04:F2:10:01:10,10.10.40.101,10.10.40.0/23,40,+1-555-010-1010,PG-GF,National
+1011,Ground Floor User Desk 02,Ground,Open Office GF Desk 02,Cisco IP Phone 7841,00:04:F2:10:01:11,10.10.40.102,10.10.40.0/23,40,+1-555-010-1011,PG-GF,National
+1050,Server Room / MDF Wall Phone,Ground,Server Room Telecom Rack,Cisco IP Phone 3905,00:04:F2:10:01:50,10.10.40.50,10.10.40.0/23,40,None (Internal),PG-SEC,Internal-Only
+2001,Sales Manager Office,Floor 1,Floor 1 Executive Office 01,Cisco IP Phone 8845,00:04:F2:10:02:01,10.10.40.111,10.10.40.0/23,40,+1-555-010-2001,PG-SALES,International
+2010,Sales Representative Desk 01,Floor 1,Floor 1 Open Office West 01,Cisco IP Phone 7841,00:04:F2:10:02:10,10.10.40.112,10.10.40.0/23,40,+1-555-010-2010,PG-SALES,National
+2011,Sales Representative Desk 02,Floor 1,Floor 1 Open Office West 02,Cisco IP Phone 7841,00:04:F2:10:02:11,10.10.40.113,10.10.40.0/23,40,+1-555-010-2011,PG-SALES,National
+2060,Customer Support Desk 01,Floor 1,Floor 1 Open Office East 01,Cisco IP Phone 7841,00:04:F2:10:02:60,10.10.40.160,10.10.40.0/23,40,+1-555-010-2060,PG-SUPP,National
+2061,Customer Support Desk 02,Floor 1,Floor 1 Open Office East 02,Cisco IP Phone 7841,00:04:F2:10:02:61,10.10.40.161,10.10.40.0/23,40,+1-555-010-2061,PG-SUPP,National
+3001,Engineering Lead Office,Floor 2,Floor 2 Office Suite 01,Cisco IP Phone 8845,00:04:F2:10:03:01,10.10.40.181,10.10.40.0/23,40,+1-555-010-3001,PG-ENG,International
+3010,Software Engineer Desk 01,Floor 2,Floor 2 Open Office West 01,Cisco IP Phone 7841,00:04:F2:10:03:10,10.10.40.182,10.10.40.0/23,40,+1-555-010-3010,PG-ENG,National
+3011,Software Engineer Desk 02,Floor 2,Floor 2 Open Office West 02,Cisco IP Phone 7841,00:04:F2:10:03:11,10.10.40.183,10.10.40.0/23,40,+1-555-010-3011,PG-ENG,National
+3050,R&D Hardware Lab Phone,Floor 2,Floor 2 Lab Bench 01,Cisco IP Phone 7841,00:04:F2:10:03:50,10.10.40.184,10.10.40.0/23,40,+1-555-010-3050,PG-ENG,National
+4001,Chief Executive Officer (CEO),Floor 3,Floor 3 Executive Suite 01,Cisco IP Phone 8865,00:04:F2:10:04:01,10.10.40.201,10.10.40.0/23,40,+1-555-010-4001,PG-EXEC,International
+4002,Chief Operating Officer (COO),Floor 3,Floor 3 Executive Suite 02,Cisco IP Phone 8865,00:04:F2:10:04:02,10.10.40.202,10.10.40.0/23,40,+1-555-010-4002,PG-EXEC,International
+4003,Chief Financial Officer (CFO),Floor 3,Floor 3 Executive Suite 03,Cisco IP Phone 8865,00:04:F2:10:04:03,10.10.40.203,10.10.40.0/23,40,+1-555-010-4003,PG-EXEC,International
+4010,Finance Director Desk,Floor 3,Floor 3 Finance Wing 01,Cisco IP Phone 8845,00:04:F2:10:04:10,10.10.40.210,10.10.40.0/23,40,+1-555-010-4010,PG-FIN,National
+4020,Legal Counsel Desk,Floor 3,Floor 3 Legal Wing 01,Cisco IP Phone 8845,00:04:F2:10:04:20,10.10.40.220,10.10.40.0/23,40,+1-555-010-4020,PG-LEGAL,National
+5001,Ground Meeting Room A Conference,Ground,Meeting Room A,Cisco IP Conference 8832,00:04:F2:10:05:01,10.10.40.61,10.10.40.0/23,40,+1-555-010-5001,PG-CONF,National
+5002,Ground Meeting Room B Conference,Ground,Meeting Room B,Cisco IP Conference 8832,00:04:F2:10:05:02,10.10.40.62,10.10.40.0/23,40,+1-555-010-5002,PG-CONF,National
+5003,Floor 1 Meeting Room 101,Floor 1,Meeting Room 101,Cisco IP Conference 8832,00:04:F2:10:05:03,10.10.40.63,10.10.40.0/23,40,+1-555-010-5003,PG-CONF,National
+5004,Floor 1 Meeting Room 102,Floor 1,Meeting Room 102,Cisco IP Conference 8832,00:04:F2:10:05:04,10.10.40.64,10.10.40.0/23,40,+1-555-010-5004,PG-CONF,National
+5005,Floor 2 Meeting Room 201,Floor 2,Meeting Room 201,Cisco IP Conference 8832,00:04:F2:10:05:05,10.10.40.65,10.10.40.0/23,40,+1-555-010-5005,PG-CONF,National
+5006,Floor 2 Meeting Room 202,Floor 2,Meeting Room 202,Cisco IP Conference 8832,00:04:F2:10:05:06,10.10.40.66,10.10.40.0/23,40,+1-555-010-5006,PG-CONF,National
+5007,Floor 3 Executive Boardroom Main,Floor 3,Executive Boardroom,Cisco IP Conference 8832,00:04:F2:10:05:07,10.10.40.67,10.10.40.0/23,40,+1-555-010-5007,PG-CONF,International
+5008,Floor 3 Meeting Room 301,Floor 3,Meeting Room 301,Cisco IP Conference 8832,00:04:F2:10:05:08,10.10.40.68,10.10.40.0/23,40,+1-555-010-5008,PG-CONF,National
+7001,Reception Hunt Group (Ring All),Ground,Virtual Hunt Group,System Logical Group,N/A,10.10.20.15,N/A,N/A,+1-555-010-7001,PG-RECEPT,National
+7002,IT Helpdesk Queue,Floor 2,Virtual Queue,System Logical Group,N/A,10.10.20.15,N/A,N/A,+1-555-010-7002,PG-IT,National
+8000,Corporate IVR / Auto Attendant,System,PBX Master Engine,System Application,N/A,10.10.20.15,N/A,N/A,+1-555-010-8000,N/A,Public-Entry
+8500,Voicemail Pilot Number,System,PBX Unity Messaging,System Application,N/A,10.10.20.15,N/A,N/A,+1-555-010-8500,N/A,Internal-Only

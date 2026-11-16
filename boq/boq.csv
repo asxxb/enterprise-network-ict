@@ -1,0 +1,55 @@
+Item_No,Category,Subsystem,Item_Description,Manufacturer_Part_No,Unit,Quantity,Calculation_Basis_Ref,Estimated_Unit_Cost_USD,Estimated_Total_Cost_USD,Notes_Assumptions
+1.01,Active Equipment,Core Switching,Cisco Catalyst 9500 24-Port 10/25G Switch,C9500-24Y4C-A,Each,2,Part 4a / Dual Collapsed Core Pair,12500.00,25000.00,Assumption: Includes Network Advantage license
+1.02,Active Equipment,Access Switching,Cisco Catalyst 9300 48-Port PoE+ Switch,C9300-48P-A,Each,6,Part 4b / 1x GF + 2x F1 + 2x F2 + 1x F3,5800.00,34800.00,Assumption: Includes dual 715W AC PSUs
+1.03,Active Equipment,Stacking Hardware,Cisco Catalyst 9300 StackWise-480 Kit,STACK-T1-50CM,Each,4,Part 4b / 2 stacks on F1 and F2,350.00,1400.00,Assumption: 50cm stack cables + connectors
+1.04,Active Equipment,StackPower,Cisco Catalyst 9300 StackPower Cable,CAB-SPWR-30CM,Each,2,Part 9 / Shared DC power bus F1 & F2,250.00,500.00,Assumption: 30cm StackPower cable
+1.05,Active Equipment,Perimeter Firewall,FortiGate 200F / Palo Alto PA-850 Next-Gen Firewall,FG-200F-BDL,Each,2,Part 5 / HA Active/Passive Edge Pair,7200.00,14400.00,Assumption: Includes 1-yr UTM security bundle
+1.06,Active Equipment,Wireless Controller,Cisco Catalyst 9800-L Wireless Controller,C9800-L-F-K9,Each,2,Part 6 / HA Active/Standby SSO Pair,4500.00,9000.00,Assumption: High-availability copper pair
+1.07,Active Equipment,Wireless APs,Cisco Catalyst 9120AX Series Wi-Fi 6 AP,C9120AXI-B,Each,12,Part 6 / 3 APs per floor x 4 floors,950.00,11400.00,Assumption: PoE+ 802.3at internal omni antennas
+1.08,Active Equipment,Transceivers,10GBASE-SR SFP+ 850nm MMF Transceiver,SFP-10G-SR,Each,16,Part 7 / 2 per switch x 8 endpoints,180.00,2880.00,Assumption: Cisco certified original SFP+
+1.09,Active Equipment,Transceivers,10GBASE-CU SFP+ Direct Attach Copper Cable (3m),SFP-H10GB-CU3M,Each,6,Part 7 / Core interconnect & NGFW transit,65.00,390.00,Assumption: In-rack passive twinax
+1.10,Active Equipment,Transceivers,1000BASE-LX SFP 1310nm SMF Transceiver,GLC-LH-SMD,Each,2,Part 7 / ISP WAN demarcation handoff,120.00,240.00,Assumption: Single-mode fiber optics
+2.01,Passive Cabling,Horizontal Copper,Cat6 UTP 4-Pair 23 AWG LSZH Solid Cable (305m box),CAT6-UTP-LSZH-BLU,Box,28,Part 9 / 350 drops @ 45m avg + 15% slack,210.00,5880.00,Assumption: 305m (1000ft) easy-pull boxes
+2.02,Passive Cabling,Patch Panels,24-Port 1U Cat6 RJ-45 Unshielded Patch Panel,PP-CAT6-24U-1U,Each,16,Part 9 / MDF (4) + IDFs (12),110.00,1760.00,Assumption: Includes rear cable manager & labels
+2.03,Passive Cabling,Keystone Jacks,Cat6 RJ-45 Toolless Keystone Jack (Blue/White),KJ-CAT6-UTP,Each,400,Part 9 / 350 outlets + 14% spares,4.50,1800.00,Assumption: T568B compliant component certified
+2.04,Passive Cabling,Faceplates,Dual-Port White British Standard Faceplate with Shutter,FP-2P-BS-WHT,Each,160,Part 9 / Desk & wall outlet locations,3.20,512.00,Assumption: Includes clear label window
+2.05,Passive Cabling,Patch Cords (Work Area),Cat6 UTP Molded Patch Cord 3m (Blue),PC-CAT6-3M-BLU,Each,250,Part 9 / User PC and IP phone patches,4.00,1000.00,Assumption: Stranded 24 AWG factory tested
+2.06,Passive Cabling,Patch Cords (Work Area),Cat6 UTP Molded Patch Cord 5m (Blue),PC-CAT6-5M-BLU,Each,50,Part 9 / Long reach desks & conference tables,5.50,275.00,Assumption: Stranded 24 AWG factory tested
+2.07,Passive Cabling,Patch Cords (Rack),Cat6 UTP Slim Patch Cord 1m (Assorted Colors),PC-CAT6-1M-SLM,Each,400,Part 9 / IDF & MDF patch panel to switch,3.00,1200.00,Assumption: 28 AWG slimline patch cords
+2.08,Passive Cabling,Cable Management,1U Horizontal Cable Organizer with Cover,CMP-1U-SLT,Each,16,Part 9 / 1 per patch panel/switch pair,25.00,400.00,Assumption: Black plastic slotted duct
+3.01,Fiber Infrastructure,Riser Fiber Cable,12-Core OM4 50/125um Tight-Buffered LSZH Cable,FO-OM4-12C-TB,Meter,250,Part 7 / MDF to IDFs riser routes + loops,3.80,950.00,Assumption: Indoor riser rated LSZH jacket
+3.02,Fiber Infrastructure,Patch Panels (ODF),1U 24-Port LC-Duplex 19-inch Fiber Patch Panel,ODF-1U-24LC,Each,1,Part 7 / MDF Server Room ODF,185.00,185.00,Assumption: Includes splice trays and cable glands
+3.03,Fiber Infrastructure,Patch Panels (ODF),1U 12-Port LC-Duplex 19-inch Fiber Patch Panel,ODF-1U-12LC,Each,3,Part 7 / IDF-1, IDF-2, IDF-3 ODFs,145.00,435.00,Assumption: Includes splice trays and cable glands
+3.04,Fiber Infrastructure,Fiber Patch Cords,LC-LC Duplex OM4 Multimode Patch Cord 2m,PC-FO-OM4-LC-2M,Each,20,Part 7 / Switch to ODF interconnections,18.00,360.00,Assumption: Aqua 2.0mm LSZH zipcord
+3.05,Fiber Infrastructure,Fiber Patch Cords,LC-LC Duplex OS2 Single-Mode Patch Cord 3m,PC-FO-OS2-LC-3M,Each,4,Part 7 / ISP handoff to NGFW,22.00,88.00,Assumption: Yellow 2.0mm LSZH zipcord
+4.01,ELV Endpoints,VoIP Telephony,Cisco IP Phone 8845 with 720p HD Video,CP-8845-K9,Each,30,Part 8b / Managers, executive desks, reception,380.00,11400.00,Assumption: Gigabit Ethernet with PoE (802.3af)
+4.02,ELV Endpoints,VoIP Telephony,Cisco IP Phone 7841 4-Line Gigabit Phone,CP-7841-K9,Each,170,Part 8b / Standard employee workstations,165.00,28050.00,Assumption: Dual GbE ports with PoE (Class 2)
+4.03,ELV Endpoints,VoIP Telephony,Cisco IP Conference Phone 8832 for Meeting Rooms,CP-8832-K9,Each,8,Part 8b / 2 per floor meeting rooms,850.00,6800.00,Assumption: 360-degree room coverage with PoE
+4.04,ELV Endpoints,VoIP Infrastructure,Enterprise On-Prem IP PBX Server Appliance,PBX-APP-RACK,Each,2,Part 8b / Primary & Secondary HA PBX,4200.00,8400.00,Assumption: 1U server with redundant power
+4.05,ELV Endpoints,CCTV Surveillance,Indoor 1080p Fixed Dome IP Camera (IK10/IR),CAM-IP-DOME-2MP,Each,18,Part 8a / Corridors, lobbies, passages,195.00,3510.00,Assumption: 2.8mm lens, True WDR, PoE (802.3af)
+4.06,ELV Endpoints,CCTV Surveillance,Indoor 4MP Ultra-Wide Panoramic Turret Camera,CAM-IP-TURRET-4MP,Each,6,Part 8a / Reception, cafe, open office,265.00,1590.00,Assumption: 2.0mm lens, 120-deg FOV, PoE (802.3af)
+4.07,ELV Endpoints,CCTV Surveillance,Outdoor 4MP Varifocal Bullet Camera (IP67/IK10),CAM-IP-BULLET-4MP,Each,4,Part 8a / Perimeter entries & loading bay,340.00,1360.00,Assumption: 2.8-12mm motorized zoom, 50m IR
+4.08,ELV Endpoints,CCTV Surveillance,High-Security Low-Light Dome Camera with Audio,CAM-IP-STARLIGHT,Each,4,Part 8a / Server room, cash, security office,290.00,1160.00,Assumption: Starlight sensor, built-in mic
+4.09,ELV Endpoints,CCTV Surveillance,64-Channel 8-Bay Rackmount NVR Server,NVR-64CH-8BAY,Each,1,Part 8a / Dual 10G NIC, RAID 6 hardware,3800.00,3800.00,Assumption: 2U rackmount with dual PSUs
+4.10,ELV Endpoints,CCTV Storage,Enterprise Surveillance 8TB 7200RPM SATA HDD,HDD-SURV-8TB,Each,10,Part 8a / 8x RAID 6 + 1x Spare + 1x Cold,280.00,2800.00,Assumption: 2.5M hours MTBF, 24/7 duty
+4.11,ELV Endpoints,Access Control,Intelligent 4-Door IP Access Controller,AC-CTRL-4DOOR-IP,Each,4,Part 8a / 1 per floor ELV cabinet,1250.00,5000.00,Assumption: OSDP v2 encrypted, native TCP/IP
+4.12,ELV Endpoints,Access Control,Multi-Tech RFID (DESFire EV3) + BLE Smart Reader,AC-RDR-MTECH-OSDP,Each,16,Part 8a / 1 reader per controlled door,185.00,2960.00,Assumption: Mullion mount, OSDP RS-485
+4.13,ELV Endpoints,Access Control,1200 lb Electromagnetic Lock with Bond Sensor,AC-MAGLOCK-1200,Each,8,Part 8a / Fail-safe fire & corridor doors,140.00,1120.00,Assumption: 12/24V DC with armature plate
+4.14,ELV Endpoints,Access Control,Heavy-Duty ANSI Grade 1 Electric Mortise Strike,AC-STRIKE-MORTISE,Each,8,Part 8a / Fail-secure office & server doors,165.00,1320.00,Assumption: Fail-secure selectable 12/24V
+4.15,ELV Endpoints,Access Control,Overhead Passive Infrared Request-to-Exit Sensor,AC-REX-PIR,Each,16,Part 8a / Interior side of all doors,65.00,1040.00,Assumption: Form C relay with adjustable timer
+4.16,ELV Endpoints,Access Control,Green Emergency Break-Glass Unit (Resettable),AC-BGU-RESET-GRN,Each,8,Part 8a / Egress side of fail-safe doors,35.00,280.00,Assumption: Double pole with reset key
+5.01,Racks & Power,Server Racks,42U 19-inch Server Rack Cabinet (800x1000mm),RCK-42U-8010-PERF,Each,2,Part 9 / MDF Server Room Rack 01 & 02,1450.00,2900.00,Assumption: Perforated mesh doors, PDU trays
+5.02,Racks & Power,Wall Cabinets,18U 19-inch Wall-Mount Swing-Out Cabinet (600x600mm),RCK-18U-6060-SWG,Each,3,Part 9 / IDF-1, IDF-2, IDF-3 comms rooms,680.00,2040.00,Assumption: Glass front door, removable sides
+5.03,Racks & Power,UPS Systems,APC Smart-UPS On-Line 10kVA / 9kW 230V Rackmount,SRT10KRMXLI,Each,1,Part 9 / MDF Server Room Primary Power,6800.00,6800.00,Assumption: 6U system (3U electronics + 3U batt)
+5.04,Racks & Power,UPS Battery Packs,APC External 192V Battery Pack for SRT 10kVA,SRT192RMBP2,Each,1,Part 9 / MDF runtime extension to 47 mins,1950.00,1950.00,Assumption: 3U rackmount battery cartridge
+5.05,Racks & Power,UPS Systems,APC Smart-UPS On-Line 3kVA / 2.7kW 230V 2U Rackmount,SRT3000RMXLI,Each,3,Part 9 / IDF-1, IDF-2, IDF-3 Power,2100.00,6300.00,Assumption: 2U high-density online double-conversion
+5.06,Racks & Power,Rack PDUs,1U 19-inch Switched PDU (8x C13 Outlets 16A Metered),PDU-1U-8C13-MET,Each,5,Part 9 / 2 in MDF + 1 per floor IDF,280.00,1400.00,Assumption: Network managed with SNMP
+6.01,Software & Lic,Network Licences,Cisco DNA Advantage 3-Year Subscription (9500),C9500-DNA-A-3Y,Each,2,Part 4a / Core switches,1800.00,3600.00,Assumption: Mandatory 3-year term
+6.02,Software & Lic,Network Licences,Cisco DNA Advantage 3-Year Subscription (9300),C9300-DNA-A-3Y,Each,6,Part 4b / Access switch stacks,950.00,5700.00,Assumption: Mandatory 3-year term
+6.03,Software & Lic,Firewall Licences,Enterprise UTM Protection 1-Year Renewal Pack,FW-UTM-ENT-1Y,Each,2,Part 5 / NGFW cluster IPS/AV/Web,2400.00,4800.00,Assumption: Complete security subscription
+6.04,Software & Lic,VMS Licences,Video Management Software Device Channel License,VMS-LIC-CAM-EXP,Each,32,Part 8a / 1 per connected camera,110.00,3520.00,Assumption: Professional tier VMS license
+6.05,Software & Lic,PBX Licences,Enterprise SIP Extension User License,PBX-LIC-USER-SIP,Each,210,Part 8b / 1 per IP phone extension,35.00,7350.00,Assumption: Perpetual user license
+7.01,Services,Cabling & Civil,Structured Cabling Installation & Termination Labor,SRV-CAB-PULL-TERM,Point,350,Part 9 / Per drop rate (tray to faceplate),45.00,15750.00,Assumption: Experienced certified cable techs
+7.02,Services,Certification,Fluke DSX-8000 Copper & Fiber OTDR Certification,SRV-TEST-CERT-FLK,Point,350,Part 9 / Permanent link Level 2G testing,12.00,4200.00,Assumption: Includes certified PDF/FLW reports
+7.03,Services,Engineering,Network & ELV Staging Configuration & Commissioning,SRV-ENG-STG-COMM,Day,15,Part 11 / Switching firewall ELV bring-up,850.00,12750.00,Assumption: Senior Lead Network & ELV Engineer
+7.04,Services,Spares & Contingency,Emergency Hardware Spares & Consumables Allowance,SPARE-CONTINGENCY,Lot,1,Engineering Best Practice (5% of active),4500.00,4500.00,Assumption: Patch cords keystones SFPs fuses

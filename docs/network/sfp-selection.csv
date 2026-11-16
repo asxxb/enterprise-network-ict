@@ -1,0 +1,7 @@
+Part_Number,Device_Role,Interface_Speed,Form_Factor,Optical_Standard,Wavelength_nm,Fiber_Type,Core_Size_um,Connector_Type,Max_Distance_m,TX_Power_Min_dBm,RX_Sensitivity_dBm,Power_Budget_dB,Quantity_Required
+SFP-10G-SR,Core & Access Floor Switch Uplinks,10 Gbps,SFP+,10GBASE-SR,850nm,OM4 MMF,50/125,LC Duplex,400m,-7.3,-11.1,3.8,16
+SFP-H10GB-CU3M,In-Rack Core-to-Core & Firewall Transit,10 Gbps,SFP+ Passive DAC,10GBASE-CU,Copper,Twinax,N/A,SFP+ Direct Attach,3m,N/A,N/A,N/A,6
+GLC-LH-SMD,Perimeter Firewall ISP WAN Hand-off,1 Gbps,SFP,1000BASE-LX,1310nm,OS2 SMF,9/125,LC Duplex,10000m,-9.5,-20.0,10.5,2
+GLC-SX-MMD,WLC & Management Switch Console Links,1 Gbps,SFP,1000BASE-SX,850nm,OM4 MMF,50/125,LC Duplex,550m,-9.5,-17.0,7.5,4
+SFP-10G-SR-SPARE,Cold Standby Emergency Maintenance Spares,10 Gbps,SFP+,10GBASE-SR,850nm,OM4 MMF,50/125,LC Duplex,400m,-7.3,-11.1,3.8,4
+

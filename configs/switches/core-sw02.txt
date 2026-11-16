@@ -1,0 +1,413 @@
+! ==============================================================================
+! Cisco IOS-XE / Packet Tracer Configuration
+! Device: Core-SW-02 (Secondary Collapsed Core / L3 Standby Gateway)
+! Role: Spanning-Tree Root Secondary, HSRP Standby (Priority 100), OSPF Area 0
+! Model Reference: Cisco Catalyst 9500-24Y4C / Catalyst 3650-24TS (Packet Tracer)
+! ==============================================================================
+
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service sequence-numbers
+!
+hostname Core-SW-02
+!
+ip domain-name corp.office.local
+!
+! --- AAA and Management Authentication ---
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+!
+username admin privilege 15 algorithm-type scrypt secret Cisco@Admin2026!
+enable secret Cisco@Enable2026!
+!
+! --- Spanning Tree Protocol (Rapid-PVST) ---
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+! Core-SW-02 is Root Secondary for all VLANs (Priority 8192)
+spanning-tree vlan 10,20,30,31,32,33,40,50,60,70,80,90,100,999 priority 8192
+!
+! --- VLAN Definitions ---
+vlan 10
+ name MGMT_INFRA
+!
+vlan 20
+ name SERVERS_PROD
+!
+vlan 30
+ name DATA_USERS_GF
+!
+vlan 31
+ name DATA_USERS_F1
+!
+vlan 32
+ name DATA_USERS_F2
+!
+vlan 33
+ name DATA_USERS_F3
+!
+vlan 40
+ name VOICE_VOIP
+!
+vlan 50
+ name WIFI_CORP
+!
+vlan 60
+ name WIFI_GUEST
+!
+vlan 70
+ name ELV_CCTV
+!
+vlan 80
+ name ELV_ACCESS
+!
+vlan 90
+ name PRINTERS
+!
+vlan 100
+ name TRANSIT_CORE_FW
+!
+vlan 999
+ name NATIVE_BLACKHOLE
+!
+! --- IP Routing & Global Features ---
+ip routing
+ip subnet-zero
+!
+! --- Loopback Interface ---
+interface Loopback0
+ description OSPF_ROUTER_ID_MGMT_LOOPBACK
+ ip address 10.10.255.2 255.255.255.255
+ no shutdown
+!
+! --- Layer 3 Switch Virtual Interfaces (SVIs) with HSRP ---
+! Note: HSRP version 2 enabled on all SVIs
+! Core-SW-02 runs HSRP Priority 100 with preemption (Standby)
+!
+interface Vlan10
+ description SVI_MANAGEMENT_INFRASTRUCTURE
+ ip address 10.10.10.3 255.255.255.0
+ standby version 2
+ standby 10 ip 10.10.10.1
+ standby 10 priority 100
+ standby 10 preempt
+ no shutdown
+!
+interface Vlan20
+ description SVI_PRODUCTION_SERVERS
+ ip address 10.10.20.3 255.255.255.0
+ standby version 2
+ standby 20 ip 10.10.20.1
+ standby 20 priority 100
+ standby 20 preempt
+ no shutdown
+!
+interface Vlan30
+ description SVI_DATA_USERS_GROUND_FLOOR
+ ip address 10.10.30.3 255.255.255.0
+ ip helper-address 10.10.20.10
+ ip helper-address 10.10.20.11
+ standby version 2
+ standby 30 ip 10.10.30.1
+ standby 30 priority 100
+ standby 30 preempt
+ no shutdown
+!
+interface Vlan31
+ description SVI_DATA_USERS_FLOOR_1
+ ip address 10.10.31.3 255.255.255.0
+ ip helper-address 10.10.20.10
+ ip helper-address 10.10.20.11
+ standby version 2
+ standby 31 ip 10.10.31.1
+ standby 31 priority 100
+ standby 31 preempt
+ no shutdown
+!
+interface Vlan32
+ description SVI_DATA_USERS_FLOOR_2
+ ip address 10.10.32.3 255.255.255.0
+ ip helper-address 10.10.20.10
+ ip helper-address 10.10.20.11
+ standby version 2
+ standby 32 ip 10.10.32.1
+ standby 32 priority 100
+ standby 32 preempt
+ no shutdown
+!
+interface Vlan33
+ description SVI_DATA_USERS_FLOOR_3
+ ip address 10.10.33.3 255.255.255.0
+ ip helper-address 10.10.20.10
+ ip helper-address 10.10.20.11
+ standby version 2
+ standby 33 ip 10.10.33.1
+ standby 33 priority 100
+ standby 33 preempt
+ no shutdown
+!
+interface Vlan40
+ description SVI_VOICE_VOIP_TELEPHONY
+ ip address 10.10.40.3 255.255.254.0
+ ip helper-address 10.10.20.10
+ ip helper-address 10.10.20.11
+ standby version 2
+ standby 40 ip 10.10.40.1
+ standby 40 priority 100
+ standby 40 preempt
+ no shutdown
+!
+interface Vlan50
+ description SVI_CORPORATE_WIFI
+ ip address 10.10.50.3 255.255.254.0
+ ip helper-address 10.10.20.10
+ ip helper-address 10.10.20.11
+ standby version 2
+ standby 50 ip 10.10.50.1
+ standby 50 priority 100
+ standby 50 preempt
+ no shutdown
+!
+! Note: VLAN 60 (Guest Wi-Fi) has NO SVI on the Core Switch.
+! Guest traffic is bridged at Layer 2 directly to the Firewall interface.
+!
+interface Vlan70
+ description SVI_ELV_IP_CCTV_CAMERAS
+ ip address 10.10.70.3 255.255.255.0
+ standby version 2
+ standby 70 ip 10.10.70.1
+ standby 70 priority 100
+ standby 70 preempt
+ no shutdown
+!
+interface Vlan80
+ description SVI_ELV_ACCESS_CONTROL
+ ip address 10.10.80.3 255.255.255.0
+ standby version 2
+ standby 80 ip 10.10.80.1
+ standby 80 priority 100
+ standby 80 preempt
+ no shutdown
+!
+interface Vlan90
+ description SVI_NETWORK_PRINTERS
+ ip address 10.10.90.3 255.255.255.0
+ ip helper-address 10.10.20.10
+ ip helper-address 10.10.20.11
+ standby version 2
+ standby 90 ip 10.10.90.1
+ standby 90 priority 100
+ standby 90 preempt
+ no shutdown
+!
+interface Vlan100
+ description SVI_L3_TRANSIT_TO_FIREWALL
+ ip address 10.10.100.3 255.255.255.248
+ standby version 2
+ standby 100 ip 10.10.100.1
+ standby 100 priority 100
+ standby 100 preempt
+ no shutdown
+!
+! --- Core-to-Core Interconnect (LACP Port-Channel 10) ---
+interface Port-channel10
+ description TRUNK_INTERCONNECT_TO_CORE_SW01
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,31,32,33,40,50,60,70,80,90,100,999
+ no shutdown
+!
+interface GigabitEthernet1/0/23
+ description PHYSICAL_INTERCONNECT_LINK1_TO_CORE_SW01
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,31,32,33,40,50,60,70,80,90,100,999
+ channel-group 10 mode active
+ no shutdown
+!
+interface GigabitEthernet1/0/24
+ description PHYSICAL_INTERCONNECT_LINK2_TO_CORE_SW01
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,31,32,33,40,50,60,70,80,90,100,999
+ channel-group 10 mode active
+ no shutdown
+!
+! --- Uplink Trunks to Floor Access Switches ---
+!
+! Uplink to Ground Floor Access (Port-Channel 1)
+interface Port-channel1
+ description TRUNK_UPLINK_TO_ACC_SW_GF
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,30,40,50,60,70,80,90,999
+ no shutdown
+!
+interface GigabitEthernet1/0/1
+ description PHYSICAL_UPLINK_TO_ACC_SW_GF
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,30,40,50,60,70,80,90,999
+ channel-group 1 mode active
+ no shutdown
+!
+! Uplink to Floor 1 Access (Port-Channel 2)
+interface Port-channel2
+ description TRUNK_UPLINK_TO_ACC_SW_F1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,31,40,50,60,70,80,90,999
+ no shutdown
+!
+interface GigabitEthernet1/0/2
+ description PHYSICAL_UPLINK_TO_ACC_SW_F1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,31,40,50,60,70,80,90,999
+ channel-group 2 mode active
+ no shutdown
+!
+! Uplink to Floor 2 Access (Port-Channel 3)
+interface Port-channel3
+ description TRUNK_UPLINK_TO_ACC_SW_F2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,32,40,50,60,70,80,90,999
+ no shutdown
+!
+interface GigabitEthernet1/0/3
+ description PHYSICAL_UPLINK_TO_ACC_SW_F2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,32,40,50,60,70,80,90,999
+ channel-group 3 mode active
+ no shutdown
+!
+! Uplink to Floor 3 Access (Port-Channel 4)
+interface Port-channel4
+ description TRUNK_UPLINK_TO_ACC_SW_F3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,33,40,50,60,70,80,90,999
+ no shutdown
+!
+interface GigabitEthernet1/0/4
+ description PHYSICAL_UPLINK_TO_ACC_SW_F3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,33,40,50,60,70,80,90,999
+ channel-group 4 mode active
+ no shutdown
+!
+! --- Server Farm & Infrastructure Links ---
+! Port-Channel 20 to Top-of-Rack Server Switch / SAN
+interface Port-channel20
+ description TRUNK_TO_SERVER_FARM_MDF
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,70,80,999
+ no shutdown
+!
+interface GigabitEthernet1/0/5
+ description PHYSICAL_LINK_TO_SERVER_FARM
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,70,80,999
+ channel-group 20 mode active
+ no shutdown
+!
+! --- Routed Uplink to Firewall (NGFW) ---
+! Physical port connecting to NGFW-02 Inside Interface
+interface GigabitEthernet1/0/20
+ description UPLINK_TO_NGFW_INSIDE
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 60,100,999
+ no shutdown
+!
+! --- Routing Protocols & Static Routes ---
+! Static Default Route pointing to Firewall Inside VIP
+ip route 0.0.0.0 0.0.0.0 10.10.100.4
+!
+! Optional Dynamic Routing with Firewall (OSPF Area 0)
+router ospf 1
+ router-id 10.10.255.2
+ log-adjacency-changes
+ passive-interface default
+ no passive-interface Vlan100
+ network 10.10.100.0 0.0.0.7 area 0
+ network 10.10.255.2 0.0.0.0 area 0
+!
+! --- Security Hardening & Management Services ---
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+!
+! NTP Client Configuration
+ntp server 10.10.20.10 prefer
+ntp server 10.10.20.11
+!
+! Syslog Logging
+logging buffered 64000 informational
+logging host 10.10.20.10
+logging trap warnings
+!
+! SNMPv3 Configuration (AuthPriv)
+snmp-server group SECURE_MGMT_GRP v3 priv
+snmp-server user snmpadmin SECURE_MGMT_GRP v3 auth sha AuthPass2026! priv aes 128 PrivPass2026!
+snmp-server host 10.10.20.10 version 3 priv snmpadmin
+snmp-server location "HQ Building - Ground Floor Server Room MDF Rack 02"
+snmp-server contact "NOC Team <noc@corp.office.local>"
+!
+! Legal Warning Banner
+banner motd ^C
+*******************************************************************************
+*                                                                             *
+*  WARNING: UNAUTHORIZED ACCESS TO THIS NETWORK DEVICE IS STRICTLY PROHIBITED  *
+*  All connections, activities, and keystrokes are logged and monitored.      *
+*  Disconnect immediately if you are not an authorized network administrator.  *
+*                                                                             *
+*******************************************************************************
+^C
+!
+! Line Configuration
+line con 0
+ exec-timeout 10 0
+ logging synchronous
+ login authentication default
+line vty 0 4
+ exec-timeout 10 0
+ logging synchronous
+ transport input ssh
+ login authentication default
+line vty 5 15
+ exec-timeout 10 0
+ logging synchronous
+ transport input ssh
+ login authentication default
+!
+! Unused Ports Hardening (Ports 6-19, 21-22 assigned to VLAN 999 and shutdown)
+interface range GigabitEthernet1/0/6 - 19, GigabitEthernet1/0/21 - 22
+ description UNUSED_PORTS_BLACKHOLE
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+end
+

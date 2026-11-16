@@ -1,0 +1,14 @@
+Rule_ID,Rule_Name,Source_Zone,Source_Network,Destination_Zone,Destination_Network,Service_Port,Action,Log,NAT_Action,Security_Profiles,Business_Justification
+10,WAN_IN_SSLVPN,ZONE_OUTSIDE,Any_Internet,FIREWALL_LOCAL,WAN_Public_IP_198.51.100.2,TCP/8443 (SSL-VPN),ALLOW,Log_All,None,IPS_Strict + GeoIP,Remote staff VPN gateway authentication with MFA
+20,WAN_IN_WEB_PORTAL,ZONE_OUTSIDE,Any_Internet,ZONE_SERVERS,Web_Portal_10.10.20.14,TCP/443 (HTTPS),ALLOW,Log_All,Static_DNAT_198.51.100.10,WAF_Standard + IPS_Web + AntiVirus,External access to published corporate portal via reverse proxy
+30,WAN_IN_SIP_TRUNK,ZONE_OUTSIDE,ITSP_SBC_Gateway,ZONE_SERVERS,PBX_Server_10.10.20.15,UDP/5060 UDP/10000-20000,ALLOW,Log_Security,Static_DNAT_198.51.100.11,IPS_VoIP + Rate_Limit,Inbound VoIP voice carrier calling traffic from authorized ITSP
+40,INSIDE_OUT_INTERNET,ZONE_INSIDE,Corp_LAN_10.10.0.0/16,ZONE_OUTSIDE,Any_Internet,TCP/80 TCP/443 UDP/53 UDP/123,ALLOW,Log_Session_End,Dynamic_PAT_198.51.100.2,IPS_Client + AV + WebFilter + SSL_Inspect,Corporate workstation and laptop employee web browsing and SaaS
+50,GUEST_OUT_INTERNET,ZONE_GUEST,Guest_Subnet_10.10.60.0/24,ZONE_OUTSIDE,Any_Internet,TCP/80 TCP/443 UDP/53,ALLOW,Log_Session_End,Dynamic_PAT_198.51.100.3,AV + WebFilter_Strict + Bandwidth_Cap_10M,Visitor and contractor Internet access with captive portal
+60,GUEST_BLOCK_INTERNAL,ZONE_GUEST,Guest_Subnet_10.10.60.0/24,ZONE_INSIDE+SERVERS+ELV,Private_10.0.0.0/8,Any,DENY,Log_All,None,None,Air-gap isolation preventing visitor access to corporate network
+70,SERVERS_OUT_UPDATES,ZONE_SERVERS,Server_Subnet_10.10.20.0/24,ZONE_OUTSIDE,Authorized_Update_Repos,TCP/443 UDP/123,ALLOW,Log_All,Dynamic_PAT_198.51.100.2,AV + IPS_Server + App_Control,Windows Update antivirus definitions and cloud backup sync
+80,SERVERS_OUT_SIP,ZONE_SERVERS,PBX_Server_10.10.20.15,ZONE_OUTSIDE,ITSP_SBC_Gateway,UDP/5060 UDP/10000-20000,ALLOW,Log_Security,Static_SNAT_198.51.100.11,IPS_VoIP,Outbound PBX call signaling and voice media to SIP provider
+90,VPN_USERS_TO_CORP,ZONE_VPN,VPN_Pool_10.10.200.0/24,ZONE_SERVERS,Server_Subnet_10.10.20.0/24,TCP/445 TCP/3389 TCP/443,ALLOW,Log_Session_End,None,IPS_Client + User_Identity,Authenticated remote teleworkers accessing file shares and ERP
+100,VPN_ADMIN_TO_MGMT,ZONE_VPN,VPN_Admins_Group,ZONE_INSIDE,Mgmt_Subnet_10.10.10.0/24,TCP/22 TCP/443,ALLOW,Log_All,None,IPS_Strict + Admin_Audit,IT Administrator remote out-of-band management of switches and firewalls
+110,ELV_BLOCK_INTERNET,ZONE_ELV,ELV_Subnets_10.10.70_80,ZONE_OUTSIDE,Any_Internet,Any,DENY,Log_All,None,None,Zero-trust containment blocking cameras and door controllers from Internet
+120,DEFAULT_DENY_ALL,Any_Zone,Any_Source,Any_Zone,Any_Destination,Any,DENY,Log_All,None,None,Implicit default-deny drop rule for all unmatched traffic
+

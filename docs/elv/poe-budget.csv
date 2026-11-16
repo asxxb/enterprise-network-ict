@@ -1,0 +1,17 @@
+Switch_ID,Floor,Switch_Model,PoE_Budget_Watts,Connected_Device_Type,Device_Count,PoE_Standard,Max_Watts_Per_Port,Total_Allocated_Watts,Remaining_PoE_Watts,Utilization_Percent,Headroom_Status
+Acc-SW-GF,Ground,Cisco Catalyst 9300-48P (1x),740,IP Desk Phones (Cisco 7841/8845),40,802.3af (PoE),6.5,220.0,520.0,29.7%,Normal
+Acc-SW-GF,Ground,Cisco Catalyst 9300-48P (1x),740,Wi-Fi 6 Access Points (C9120AXI),3,802.3at (PoE+),24.5,60.0,460.0,37.8%,Normal
+Acc-SW-GF,Ground,Cisco Catalyst 9300-48P (1x),740,IP CCTV Cameras (Fixed Dome/Turret),8,802.3af (PoE),10.5,68.0,392.0,47.0%,Normal
+Acc-SW-GF,Ground,Cisco Catalyst 9300-48P (1x),740,Physical Access Control Controllers,4,802.3af (PoE),12.5,40.0,352.0,52.4%,Healthy (47.6% Spare)
+Acc-SW-F1-01,Floor 1,Cisco Catalyst 9300-48P Stack (2x),1480,IP Desk Phones (Cisco 7841/8845),60,802.3af (PoE),6.5,330.0,1150.0,22.3%,Normal
+Acc-SW-F1-01,Floor 1,Cisco Catalyst 9300-48P Stack (2x),1480,Wi-Fi 6 Access Points (C9120AXI),3,802.3at (PoE+),24.5,60.0,1090.0,26.4%,Normal
+Acc-SW-F1-01,Floor 1,Cisco Catalyst 9300-48P Stack (2x),1480,IP CCTV Cameras (Fixed Dome/Turret),8,802.3af (PoE),10.5,68.0,1022.0,30.9%,Normal
+Acc-SW-F1-01,Floor 1,Cisco Catalyst 9300-48P Stack (2x),1480,Physical Access Control Controllers,4,802.3af (PoE),12.5,40.0,982.0,33.6%,Healthy (66.4% Spare)
+Acc-SW-F2-01,Floor 2,Cisco Catalyst 9300-48P Stack (2x),1480,IP Desk Phones (Cisco 7841/8845),60,802.3af (PoE),6.5,330.0,1150.0,22.3%,Normal
+Acc-SW-F2-01,Floor 2,Cisco Catalyst 9300-48P Stack (2x),1480,Wi-Fi 6 Access Points (C9120AXI),3,802.3at (PoE+),24.5,60.0,1090.0,26.4%,Normal
+Acc-SW-F2-01,Floor 2,Cisco Catalyst 9300-48P Stack (2x),1480,IP CCTV Cameras (Fixed Dome/Turret),8,802.3af (PoE),10.5,68.0,1022.0,30.9%,Normal
+Acc-SW-F2-01,Floor 2,Cisco Catalyst 9300-48P Stack (2x),1480,Physical Access Control Controllers,4,802.3af (PoE),12.5,40.0,982.0,33.6%,Healthy (66.4% Spare)
+Acc-SW-F3,Floor 3,Cisco Catalyst 9300-48P (1x),740,IP Desk Phones (Cisco 7841/8845),40,802.3af (PoE),6.5,220.0,520.0,29.7%,Normal
+Acc-SW-F3,Floor 3,Cisco Catalyst 9300-48P (1x),740,Wi-Fi 6 Access Points (C9120AXI),3,802.3at (PoE+),24.5,60.0,460.0,37.8%,Normal
+Acc-SW-F3,Floor 3,Cisco Catalyst 9300-48P (1x),740,IP CCTV Cameras (Fixed Dome/Turret),8,802.3af (PoE),10.5,68.0,392.0,47.0%,Normal
+Acc-SW-F3,Floor 3,Cisco Catalyst 9300-48P (1x),740,Physical Access Control Controllers,4,802.3af (PoE),12.5,40.0,352.0,52.4%,Healthy (47.6% Spare)
