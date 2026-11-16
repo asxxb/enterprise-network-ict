@@ -60,3 +60,4 @@ To protect project schedules against shipping delays, component infant mortality
 2. **Active Optics Spares:** 4 $\times$ 10GBASE-SR SFP+ and 2 $\times$ 1000BASE-LX SFP transceivers kept as cold-standby spares in the comms room cabinet.
 3. **Storage Spares:** 1 $\times$ 8TB Enterprise SATA HDD kept in anti-static storage as a cold spare for the NVR RAID 6 array in addition to the live online hot-spare.
 4. **Engineering Contingency:** A \$4,500.00 contingency allowance is reserved for consumables (Velcro ties, cage nuts, heat-shrink labels, fiber cleaning cassettes, and replacement patch cords).
+

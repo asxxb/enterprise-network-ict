@@ -161,3 +161,4 @@ Following installation, **100% of horizontal copper links** must undergo rigorou
 
 > [!NOTE]
 > All test results must be exported directly from the Fluke LinkWare software in tamper-proof `.flw` format and archived in the project handover records.
+

@@ -53,3 +53,4 @@ Item_No,Category,Subsystem,Item_Description,Manufacturer_Part_No,Unit,Quantity,C
 7.02,Services,Certification,Fluke DSX-8000 Copper & Fiber OTDR Certification,SRV-TEST-CERT-FLK,Point,350,Part 9 / Permanent link Level 2G testing,12.00,4200.00,Assumption: Includes certified PDF/FLW reports
 7.03,Services,Engineering,Network & ELV Staging Configuration & Commissioning,SRV-ENG-STG-COMM,Day,15,Part 11 / Switching firewall ELV bring-up,850.00,12750.00,Assumption: Senior Lead Network & ELV Engineer
 7.04,Services,Spares & Contingency,Emergency Hardware Spares & Consumables Allowance,SPARE-CONTINGENCY,Lot,1,Engineering Best Practice (5% of active),4500.00,4500.00,Assumption: Patch cords keystones SFPs fuses
+

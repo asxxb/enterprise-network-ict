@@ -107,3 +107,4 @@ The signatures below signify formal project acceptance, certifying that all deli
 - **Lead Implementation Architect:** __________________________  **Signature:** __________________ **Date:** ____________
 - **Client Project Technical Director:** __________________________  **Signature:** __________________ **Date:** ____________
 - **Client Head of IT Infrastructure:** __________________________  **Signature:** __________________ **Date:** ____________
+

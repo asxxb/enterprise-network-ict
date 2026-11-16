@@ -110,3 +110,4 @@ Where:
 - **Runtime Calculation (Worst-Case 850W Load on Floor 1 & 2):**
   $$\text{Runtime} = \frac{96\text{ V} \times 9\text{ Ah} \times 0.92 \times 0.85}{850\text{ W}} \times 60 \approx \mathbf{47.7\text{ Minutes}}$$
 - **Conclusion:** Exceeds the 30-minute target by over 50%, guaranteeing uninterrupted VoIP telephony, emergency access control egress, and CCTV recording during localized power breaker trips.
+

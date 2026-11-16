@@ -161,3 +161,4 @@ When a field technician unboxes an IP phone and patches it into any user wall ou
 - The primary PBX (`10.10.20.15`) replicates database state and active SIP registrations continuously to a secondary PBX node (`10.10.20.18`).
 - If the primary PBX fails, phones fail over to the secondary PBX within 10 seconds.
 - In the event of an external Internet/WAN link failure, internal extension-to-extension calling across all four floors remains 100% functional through the Core switch.
+
